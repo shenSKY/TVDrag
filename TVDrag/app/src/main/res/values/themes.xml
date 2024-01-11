@@ -1,0 +1,4 @@
+<resources>
+
+    <style name="Theme.TVDrag" parent="@style/Theme.Leanback" />
+</resources>
