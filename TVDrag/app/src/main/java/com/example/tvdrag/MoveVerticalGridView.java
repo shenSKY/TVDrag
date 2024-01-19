@@ -5,12 +5,15 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import androidx.leanback.widget.ArrayObjectAdapter;
+import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.leanback.widget.VerticalGridView;
 
 public class MoveVerticalGridView extends VerticalGridView {
 
     boolean isSwapMode;
     int spanCount;
+    ArrayObjectAdapter adapter;
     public MoveVerticalGridView(Context context) {
         super(context);
     }
@@ -76,15 +79,20 @@ public class MoveVerticalGridView extends VerticalGridView {
     }
 
     private void moveItem(int fromPosition, int toPosition) {
-        ItemAdapter adapter = (ItemAdapter) getAdapter();
-        if (adapter instanceof ItemAdapter) {
-            adapter.moveItem(fromPosition, toPosition);
+        if (adapter != null) {
+            adapter.move(fromPosition, toPosition);
         }
     }
 
     public void setSpanCount(int spanCount) {
         this.spanCount = spanCount;
         setNumColumns(spanCount);
+    }
+
+    public void setAdapter(ArrayObjectAdapter adapter) {
+        this.adapter = adapter;
+        ItemBridgeAdapter itemBridgeAdapter = new ItemBridgeAdapter(adapter);
+        setAdapter(itemBridgeAdapter);
     }
 
     public int getSpanCount() {

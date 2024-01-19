@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class MainActivity extends FragmentActivity {
 
     MoveVerticalGridView verticalGridView;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +40,11 @@ public class MainActivity extends FragmentActivity {
             beans.add(bean);
         }
 
-        ItemAdapter adapter = new ItemAdapter(this, beans);
-        verticalGridView.setAdapter(adapter);
+        ItemPresenter presenter = new ItemPresenter();
+        ArrayObjectAdapter mAdapter = new ArrayObjectAdapter(presenter);
+        verticalGridView.setAdapter(mAdapter);
+
+        mAdapter.addAll(0, beans);
 
         verticalGridView.addOnChildViewHolderSelectedListener(new OnChildViewHolderSelectedListener() {
             @Override
